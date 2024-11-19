@@ -97,8 +97,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Title and description
-st.title("📝 Image to Markdown Converter")
-st.markdown("Transform your images into beautifully formatted markdown text with ease.")
+st.title("📝 Convert your Image to Text")
+st.markdown("Transform to text with ease.")
 
 # File uploader
 uploaded_file = st.file_uploader(
@@ -152,12 +152,3 @@ else:
         '</div>',
         unsafe_allow_html=True
     )
-
-# Footer
-st.markdown(
-    '<div class="footer">'
-    'Made with ❤️ using Streamlit and Tesseract OCR<br>'
-    '<a href="#">View Documentation</a>'
-    '</div>',
-    unsafe_allow_html=True
-)
