@@ -107,7 +107,35 @@ st.markdown("""
     .footer a:hover {
         color: #B97348;
     }
+
+    /* Markdown Output Container */
+    #markdown-output {
+        padding: 1rem;
+        background: #F8F9FA;
+        border-radius: 8px;
+        border: 1px solid #E2E8F0;
+        white-space: pre-wrap;
+        font-family: 'Inter', monospace;
+        margin-bottom: 1rem;
+    }
     </style>
+
+    <script>
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(
+            function() {
+                // Show success message
+                document.querySelector('.success-text').style.display = 'block';
+                // Hide after 3 seconds
+                setTimeout(function() {
+                    document.querySelector('.success-text').style.display = 'none';
+                }, 3000);
+            }
+        ).catch(function(err) {
+            console.error('Failed to copy text: ', err);
+        });
+    }
+    </script>
 """, unsafe_allow_html=True)
 
 # Title and description
@@ -130,7 +158,7 @@ if uploaded_file is not None:
             image = Image.open(io.BytesIO(image_bytes))
             
             # Display image
-            st.image(image, caption='Uploaded Image', use_column_width=True)
+            st.image(image, caption='Uploaded Image', use_container_width=True)
             
             # Process image
             processed_image = process_image(image)
@@ -144,13 +172,28 @@ if uploaded_file is not None:
                 
                 # Display markdown
                 st.subheader("📄 Extracted Text (Markdown)")
-                st.text_area("", markdown_text, height=200)
+                st.text_area(
+                    "Markdown Output",
+                    markdown_text,
+                    height=200,
+                    label_visibility="collapsed"
+                )
                 
-                # Copy button
+                # Display markdown in a container for copying
+                st.write(
+                    f'<div id="markdown-output">{markdown_text}</div>',
+                    unsafe_allow_html=True
+                )
+                
+                # Copy button with JavaScript functionality
                 if st.button("📋 Copy to Clipboard"):
-                    st.code(markdown_text)
                     st.markdown(
-                        '<p class="success-text">✨ Text copied to clipboard!</p>',
+                        f"""
+                        <script>
+                            copyToClipboard(`{markdown_text}`);
+                        </script>
+                        <p class="success-text" style="display: none;">✨ Text copied to clipboard!</p>
+                        """,
                         unsafe_allow_html=True
                     )
             else:
