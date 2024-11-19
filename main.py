@@ -19,10 +19,11 @@ st.markdown("""
     
     * {
         font-family: 'Inter', sans-serif;
+        color: #FFFFFF;
     }
     
     h1, h2, h3 {
-        color: #2C3E50;
+        color: #FFD700;
         font-weight: 600;
     }
     
@@ -32,7 +33,7 @@ st.markdown("""
         border-radius: 12px;
         padding: 2.5rem;
         text-align: center;
-        background-color: #F8F9FA;
+        background-color: #2D2D2D;
         transition: all 0.3s ease;
         cursor: pointer;
         margin: 2rem 0;
@@ -40,7 +41,7 @@ st.markdown("""
     
     .upload-area:hover {
         border-color: #D68A59;
-        background-color: #FAFBFC;
+        background-color: #363636;
     }
     
     .upload-icon {
@@ -51,8 +52,9 @@ st.markdown("""
     
     /* Text Area Styles */
     .stTextArea textarea {
-        background-color: #F8F9FA;
-        border: 1px solid #E2E8F0;
+        background-color: #2D2D2D;
+        border: 1px solid #404040;
+        color: #FFFFFF;
         border-radius: 8px;
         padding: 1rem;
         font-family: 'Inter', monospace;
@@ -67,7 +69,7 @@ st.markdown("""
     .footer {
         text-align: center;
         padding: 2rem 0;
-        color: #6B7280;
+        color: #A3B18A;
         font-size: 0.9rem;
     }
     
@@ -79,6 +81,17 @@ st.markdown("""
     
     .footer a:hover {
         color: #B97348;
+    }
+
+    /* Warning and Error Messages */
+    .stAlert {
+        background-color: #2D2D2D;
+        color: #FFFFFF;
+        border: 1px solid #404040;
+    }
+
+    .stSpinner {
+        color: #A3B18A;
     }
     </style>
 """, unsafe_allow_html=True)
