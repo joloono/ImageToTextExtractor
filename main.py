@@ -26,23 +26,6 @@ st.markdown("""
         font-weight: 600;
     }
     
-    /* Button Styles */
-    .stButton>button {
-        width: 100%;
-        background-color: #A3B18A !important;
-        color: white !important;
-        border: none !important;
-        border-radius: 8px !important;
-        padding: 0.75rem 1.5rem !important;
-        transition: all 0.3s ease !important;
-    }
-    
-    .stButton>button:hover {
-        background-color: #8B9B76 !important;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    
     /* Upload Area Styles */
     .upload-area {
         border: 2px dashed #A3B18A;
@@ -66,28 +49,18 @@ st.markdown("""
         margin-bottom: 1rem;
     }
     
-    /* Success Message Styles */
-    .success-text {
-        color: #2C3E50;
-        background-color: #E8F0E3;
-        padding: 1rem;
-        border-radius: 8px;
-        border-left: 4px solid #A3B18A;
-        margin: 1rem 0;
-    }
-    
     /* Text Area Styles */
     .stTextArea textarea {
+        background-color: #F8F9FA;
+        border: 1px solid #E2E8F0;
         border-radius: 8px;
-        border-color: #E2E8F0;
         padding: 1rem;
         font-family: 'Inter', monospace;
-        transition: border-color 0.3s ease;
+        cursor: text;
     }
-    
-    .stTextArea textarea:focus {
+
+    .stTextArea textarea:hover {
         border-color: #A3B18A;
-        box-shadow: 0 0 0 2px rgba(163, 177, 138, 0.2);
     }
     
     /* Footer Styles */
@@ -107,35 +80,7 @@ st.markdown("""
     .footer a:hover {
         color: #B97348;
     }
-
-    /* Markdown Output Container */
-    #markdown-output {
-        padding: 1rem;
-        background: #F8F9FA;
-        border-radius: 8px;
-        border: 1px solid #E2E8F0;
-        white-space: pre-wrap;
-        font-family: 'Inter', monospace;
-        margin-bottom: 1rem;
-    }
     </style>
-
-    <script>
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text).then(
-            function() {
-                // Show success message
-                document.querySelector('.success-text').style.display = 'block';
-                // Hide after 3 seconds
-                setTimeout(function() {
-                    document.querySelector('.success-text').style.display = 'none';
-                }, 3000);
-            }
-        ).catch(function(err) {
-            console.error('Failed to copy text: ', err);
-        });
-    }
-    </script>
 """, unsafe_allow_html=True)
 
 # Title and description
@@ -173,29 +118,12 @@ if uploaded_file is not None:
                 # Display markdown
                 st.subheader("📄 Extracted Text (Markdown)")
                 st.text_area(
-                    "Markdown Output",
-                    markdown_text,
+                    "Extracted Text",
+                    value=markdown_text,
                     height=200,
-                    label_visibility="collapsed"
+                    label_visibility="collapsed",
+                    key="copyable_text"
                 )
-                
-                # Display markdown in a container for copying
-                st.write(
-                    f'<div id="markdown-output">{markdown_text}</div>',
-                    unsafe_allow_html=True
-                )
-                
-                # Copy button with JavaScript functionality
-                if st.button("📋 Copy to Clipboard"):
-                    st.markdown(
-                        f"""
-                        <script>
-                            copyToClipboard(`{markdown_text}`);
-                        </script>
-                        <p class="success-text" style="display: none;">✨ Text copied to clipboard!</p>
-                        """,
-                        unsafe_allow_html=True
-                    )
             else:
                 st.warning("🔍 No text was detected in the image. Please try another image.")
                 
